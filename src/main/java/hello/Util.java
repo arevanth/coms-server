@@ -160,6 +160,7 @@ public class Util {
 			if(id > 0)
 			{
 				String insertSQL = "INSERT INTO ip(open,close) VALUES (" + request.open + "," + request.close + ") WHERE user =" + id + " AND ip ='" + request.ip + "'";
+				System.out.println(insertSQL);
 				stmt.executeUpdate(insertSQL);
 				rs = stmt.getGeneratedKeys();
 				while(rs.next())
