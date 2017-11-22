@@ -79,7 +79,7 @@ public class Util {
 			
 			if(id > 0)
 			{
-				String insertSQL = "INSERT INTO ip VALUES (NULL," + id + ",'" + ip + "')";
+				String insertSQL = "INSERT INTO ip(user,ip) VALUES (NULL," + id + ",'" + ip + "')";
 				System.out.println(insertSQL);
 				stmt = conn.createStatement();
 				stmt.executeUpdate(insertSQL);
