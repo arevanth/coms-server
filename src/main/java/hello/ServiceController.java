@@ -64,4 +64,10 @@ public class ServiceController {
 		return Util.getAllIp(email);
 	}
 	
+	@ResponseBody
+	@RequestMapping(value ="/setcondition", method = RequestMethod.POST)
+	public boolean setCondition(@RequestBody ConditionRequest request)
+	{
+		return Util.setCondition(request);
+	}
 }

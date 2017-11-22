@@ -138,4 +138,27 @@ public class Util {
 		return results;
 
 	}
+	
+	public static boolean setCondition(ConditionRequest request)
+	{
+		boolean result = false;
+		String insertSQL = "INSERT INTO ip(open,close) VALUES (" + request.open + "," + request.close + ") WHERE user = '" + request.email + "' AND ip ='" + request.ip + "'";
+		
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/coms","root","password");
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate(insertSQL);
+			ResultSet rs = stmt.getGeneratedKeys();
+			while(rs.next())
+				result = true;
+		}
+		
+		catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 }
