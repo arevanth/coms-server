@@ -79,7 +79,7 @@ public class Util {
 			
 			if(id > 0)
 			{
-				String insertSQL = "INSERT INTO ip(user,ip) VALUES (NULL," + id + ",'" + ip + "')";
+				String insertSQL = "INSERT INTO ip(id,user,ip) VALUES (NULL," + id + ",'" + ip + "')";
 				System.out.println(insertSQL);
 				stmt = conn.createStatement();
 				stmt.executeUpdate(insertSQL);
@@ -142,16 +142,30 @@ public class Util {
 	public static boolean setCondition(ConditionRequest request)
 	{
 		boolean result = false;
-		String insertSQL = "INSERT INTO ip(open,close) VALUES (" + request.open + "," + request.close + ") WHERE user = '" + request.email + "' AND ip ='" + request.ip + "'";
+		
+		String selectSQL = "SELECT idusers FROM users WHERE email = '" + request.email + "'";
+		
 		
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/coms","root","password");
 			Statement stmt = conn.createStatement();
-			stmt.executeUpdate(insertSQL);
-			ResultSet rs = stmt.getGeneratedKeys();
+			ResultSet rs = stmt.executeQuery(selectSQL);
+			int id = 0;
+			
 			while(rs.next())
-				result = true;
+			{
+				id = rs.getInt(1);
+			}
+			if(id > 0)
+			{
+				String insertSQL = "INSERT INTO ip(open,close) VALUES (" + request.open + "," + request.close + ") WHERE user =" + id + " AND ip ='" + request.ip + "'";
+				stmt.executeUpdate(insertSQL);
+				rs = stmt.getGeneratedKeys();
+				while(rs.next())
+					result = true;
+			}
+			
 		}
 		
 		catch (Exception e) {
