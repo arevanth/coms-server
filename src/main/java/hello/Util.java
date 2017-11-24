@@ -41,7 +41,7 @@ public class Util {
 	public static LoginResponse login(String email, String password)
 	{
 		LoginResponse response = null;
-		String selectSQL = "SELECT name, email, type FROM users WHERE email = '" + email + "' AND password = '" + password + "'";
+		String selectSQL = "SELECT idusers, name, email, type FROM users WHERE email = '" + email + "' AND password = '" + password + "'";
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/coms","root","password");
@@ -50,7 +50,7 @@ public class Util {
 			
 			while(rs.next())
 			{
-				response = new LoginResponse(rs.getString(1),rs.getString(2),rs.getString(3));
+				response = new LoginResponse(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4));
 			}
 		}
 		catch (Exception e) {
@@ -162,9 +162,7 @@ public class Util {
 				String insertSQL = "UPDATE ip SET open=" + request.open +", close=" + request.close + " WHERE user =" + id + " AND ip ='" + request.ip + "'";
 				System.out.println(insertSQL);
 				stmt.executeUpdate(insertSQL);
-				rs = stmt.getGeneratedKeys();
-				while(rs.next())
-					result = true;
+				result = true;
 			}
 			
 		}
@@ -176,4 +174,32 @@ public class Util {
 		
 		return result;
 	}
+	
+	public static List<String> getEmail(String email)
+	{
+		String selectSQL = "SELECT email FROM users WHERE email = '" + email + "' AND type = 0";
+		List<String> results = new ArrayList<String>();
+		
+		System.out.println(selectSQL);
+		
+		try
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/coms","root","password");
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(selectSQL);
+			
+			while(rs.next())
+			{
+				results.add(rs.getString(1));
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		
+		return results;
+	}
+	
 }

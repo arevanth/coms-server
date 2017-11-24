@@ -70,4 +70,11 @@ public class ServiceController {
 	{
 		return Util.setCondition(request);
 	}
+	
+	@ResponseBody
+	@RequestMapping(value ="/getemail", method = RequestMethod.POST)
+	public List<String> getEmail(@RequestBody String email)
+	{
+		return Util.getEmail(email);
+	}
 }
