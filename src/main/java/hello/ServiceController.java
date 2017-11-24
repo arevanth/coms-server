@@ -78,4 +78,11 @@ public class ServiceController {
 	{
 		return Util.getEmail(email);
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/consent",method = RequestMethod.POST)
+	public boolean giveConsent(@RequestBody ConsentRequest consent)
+	{
+		return Util.giveConsent(consent);
+	}
 }

@@ -100,6 +100,7 @@ public class Util {
 	public static List<String> getAllIp(GetIpRequest request)
 	{
 		List<String> results = new ArrayList<String>();
+		
 		String selectSQL = "SELECT idusers FROM users WHERE idusers = '" + request.userId + "' AND type=" + request.type;
 		
 		System.out.println(selectSQL);
@@ -118,7 +119,12 @@ public class Util {
 			
 			if(id > 0)
 			{
-				String selectIpSQL = "SELECT ip FROM ip where user = " + id;
+				String selectIpSQL = "";
+				if(request.type.equals("1"))
+					selectIpSQL = "SELECT ip FROM ip where user = " + id;
+				else
+					selectIpSQL = "SELECT ip FROM ip where consent = " + id;
+				
 				System.out.println(selectIpSQL);
 				stmt = conn.createStatement();
 				rs = stmt.executeQuery(selectIpSQL);
@@ -200,6 +206,35 @@ public class Util {
 		}
 		
 		return results;
+	}
+	
+	public static boolean giveConsent(ConsentRequest request)
+	{
+		String selectSQL = "SELECT idusers FROM users WHERE email = '" + request.email + "' AND type = 0";
+		String id = "";
+		boolean result = false;
+		try
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/coms","root","password");
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(selectSQL);
+			
+			while(rs.next())
+			{
+				id = rs.getString(1);
+			}
+			
+			String updateSQL = "UPDATE ip SET consent =" + id + " WHERE user =" + request.userId + " AND ip ='" + request.ip + "'";
+			stmt.executeUpdate(updateSQL);
+			result = true;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		
+		return result;
 	}
 	
 }
