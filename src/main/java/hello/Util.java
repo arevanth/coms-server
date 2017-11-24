@@ -97,12 +97,12 @@ public class Util {
 		return result;
 	}
 	
-	public static List<String> getAllIp(String email)
+	public static List<String> getAllIp(GetIpRequest request)
 	{
-		System.out.println(email);
 		List<String> results = new ArrayList<String>();
-		String selectSQL = "SELECT idusers FROM users WHERE email = '" + email + "'";
+		String selectSQL = "SELECT idusers FROM users WHERE idusers = '" + request.userId + "' AND type=" + request.type;
 		
+		System.out.println(selectSQL);
 		try
 		{
 			Class.forName("com.mysql.jdbc.Driver");

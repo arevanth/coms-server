@@ -60,8 +60,9 @@ public class ServiceController {
 	
 	@ResponseBody 
 	@RequestMapping(value = "/getip", method = RequestMethod.POST)
-	public List<String> save(@RequestBody String email){
-		return Util.getAllIp(email);
+	public List<String> getIP(@RequestBody GetIpRequest request){
+		System.out.println(request.type + "-" + request.userId);
+		return Util.getAllIp(request);
 	}
 	
 	@ResponseBody
