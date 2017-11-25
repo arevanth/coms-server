@@ -169,7 +169,7 @@ public class Util {
 	{
 		boolean result = false;
 		try{
-			String insertSQL = "UPDATE ip SET open=" + request.open +", close=" + request.close + " WHERE user =" + request.userId + " AND ip ='" + request.ip + "'";
+			String insertSQL = "UPDATE ip SET open=" + request.open +", close=" + request.close + " WHERE ip ='" + request.ip + "'";
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/coms","root","password");
 			Statement stmt = conn.createStatement();
@@ -243,7 +243,9 @@ public class Util {
 	
 	public static List<Integer>  getCondition(ConditionRequest request)
 	{
-		String selectSQL = "SELECT open,close FROM ip WHERE user = " + request.userId + " AND ip = '" + request.ip + "'";
+		String selectSQL = "";
+	
+		selectSQL = "SELECT open,close FROM ip WHERE ip = '" + request.ip + "'";
 		
 		System.out.println(selectSQL);
 		
