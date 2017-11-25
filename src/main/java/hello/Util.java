@@ -68,7 +68,7 @@ public class Util {
 			return true;
 		
 		boolean result = false;
-		String insertSQL = "INSERT INTO ip(id,user,ip,name) VALUES (NULL," + userId + ",'" + ip + "'," + name +")";
+		String insertSQL = "INSERT INTO ip(id,user,ip,name) VALUES (NULL," + userId + ",'" + ip + "','" + name +"')";
 		System.out.println(insertSQL);
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
