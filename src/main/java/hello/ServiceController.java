@@ -50,12 +50,7 @@ public class ServiceController {
 	@RequestMapping(value = "/saveip", method = RequestMethod.POST)
 	public Boolean save(@RequestBody saveIpRequest save)
 	{
-		Long response = Util.saveIp(save.email,save.ip);
-		
-		if(response > 0)
-			return true;
-		else
-			return false;
+		return Util.saveIp(save.userId,save.ip);
 	}
 	
 	@ResponseBody 

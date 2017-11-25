@@ -61,39 +61,57 @@ public class Util {
 		return response;
 	}
 	
-	public static Long saveIp(String email, String ip)
+	public static boolean saveIp(int userId, String ip)
 	{
-		Long result = null;
-		String selectSQL = "SELECT idusers FROM users WHERE email = '" + email + "'";
+		if(checkIfAlreadyExists(userId, ip))
+			return true;
+		
+		boolean result = false;
+		String insertSQL = "INSERT INTO ip(id,user,ip) VALUES (NULL," + userId + ",'" + ip + "')";
+		System.out.println(insertSQL);
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/coms","root","password");
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(selectSQL);
-			int id = 0;
 			
-			while(rs.next())
-			{
-				id = rs.getInt(1);
-			}
-			
-			if(id > 0)
-			{
-				String insertSQL = "INSERT INTO ip(id,user,ip) VALUES (NULL," + id + ",'" + ip + "')";
-				System.out.println(insertSQL);
-				stmt = conn.createStatement();
-				stmt.executeUpdate(insertSQL);
-				rs = stmt.getGeneratedKeys();
-				rs.next();
-				result = rs.getLong(1);
-			}
-			
+			stmt = conn.createStatement();
+			stmt.executeUpdate(insertSQL);
+			ResultSet rs = stmt.getGeneratedKeys();
+			rs.next();
+			result = true;	
 			
 		}
 		catch (Exception e) {
 				// TODO: handle exception
 			e.printStackTrace();
 		}	
+		return result;
+	}
+	
+	private static boolean checkIfAlreadyExists(int userId, String ip)
+	{
+		
+		boolean result = false;
+		String selectSQL = "SELECT idusers FROM users WHERE idusers = '" + userId + "' AND ip='" + ip + "'";
+		
+		try
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/coms","root","password");
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(selectSQL);
+			
+			while(rs.next())
+			{
+				result = true;
+			}
+		}
+		catch (Exception e) 
+		{
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
 		return result;
 	}
 	

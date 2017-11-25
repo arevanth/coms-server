@@ -9,7 +9,7 @@ package hello;
  */
 public class saveIpRequest {
 	
-	public String email;
+	public int userId;
 	public String ip;
 	
 	
