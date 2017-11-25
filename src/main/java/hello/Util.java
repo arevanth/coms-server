@@ -92,7 +92,7 @@ public class Util {
 	{
 		
 		boolean result = false;
-		String selectSQL = "SELECT idusers FROM users WHERE idusers = '" + userId + "' AND ip='" + ip + "'";
+		String selectSQL = "SELECT id FROM ip WHERE user = '" + userId + "' AND ip='" + ip + "'";
 		
 		try
 		{
