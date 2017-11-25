@@ -140,9 +140,9 @@ public class Util {
 			{
 				String selectIpSQL = "";
 				if(request.type.equals("1"))
-					selectIpSQL = "SELECT ip,name FROM ip where user = " + id;
+					selectIpSQL = "SELECT name,ip FROM ip where user = " + id;
 				else
-					selectIpSQL = "SELECT ip,name FROM ip where consent = " + id;
+					selectIpSQL = "SELECT name,ip FROM ip where consent = " + id;
 				
 				System.out.println(selectIpSQL);
 				stmt = conn.createStatement();
