@@ -70,7 +70,7 @@ public class ServiceController {
 	
 	@ResponseBody
 	@RequestMapping(value ="/getcondition", method = RequestMethod.POST)
-	public List<String> getCondition(@RequestBody ConditionRequest request)
+	public List<Integer> getCondition(@RequestBody ConditionRequest request)
 	{
 		return Util.getCondition(request);
 	}

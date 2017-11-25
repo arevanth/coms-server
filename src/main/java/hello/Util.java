@@ -241,10 +241,10 @@ public class Util {
 		return result;
 	}
 	
-	public static List<String>  getCondition(ConditionRequest request)
+	public static List<Integer>  getCondition(ConditionRequest request)
 	{
 		String selectSQL = "SELECT open,close FROM ip WHERE user = " + request.userId + " AND ip = '" + request.ip + "'";
-		List<String> results = new ArrayList<String>();
+		List<Integer> results = new ArrayList<Integer>();
 		try
 		{
 			Class.forName("com.mysql.jdbc.Driver");
@@ -252,8 +252,8 @@ public class Util {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(selectSQL);
 			
-			results.add(rs.getString(0));
-			results.add(rs.getString(1));
+			results.add(rs.getInt(0));
+			results.add(rs.getInt(1));
 		}
 		catch(Exception ex)
 		{
