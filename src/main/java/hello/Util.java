@@ -244,6 +244,9 @@ public class Util {
 	public static List<Integer>  getCondition(ConditionRequest request)
 	{
 		String selectSQL = "SELECT open,close FROM ip WHERE user = " + request.userId + " AND ip = '" + request.ip + "'";
+		
+		System.out.println(selectSQL);
+		
 		List<Integer> results = new ArrayList<Integer>();
 		try
 		{
