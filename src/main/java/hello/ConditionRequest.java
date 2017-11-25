@@ -9,7 +9,7 @@ package hello;
  */
 public class ConditionRequest {
 	
-	public String email;
+	public String userId;
 	public String ip;
 	public int open;
 	public int close;

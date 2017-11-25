@@ -69,6 +69,13 @@ public class ServiceController {
 	}
 	
 	@ResponseBody
+	@RequestMapping(value ="/getcondition", method = RequestMethod.POST)
+	public List<String> getCondition(@RequestBody ConditionRequest request)
+	{
+		return Util.getCondition(request);
+	}
+	
+	@ResponseBody
 	@RequestMapping(value ="/getemail", method = RequestMethod.POST)
 	public List<String> getEmail(@RequestBody String email)
 	{

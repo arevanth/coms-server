@@ -168,29 +168,13 @@ public class Util {
 	public static boolean setCondition(ConditionRequest request)
 	{
 		boolean result = false;
-		
-		String selectSQL = "SELECT idusers FROM users WHERE email = '" + request.email + "'";
-		
-		
 		try{
+			String insertSQL = "UPDATE ip SET open=" + request.open +", close=" + request.close + " WHERE user =" + request.userId + " AND ip ='" + request.ip + "'";
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/coms","root","password");
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(selectSQL);
-			int id = 0;
-			
-			while(rs.next())
-			{
-				id = rs.getInt(1);
-			}
-			if(id > 0)
-			{
-				String insertSQL = "UPDATE ip SET open=" + request.open +", close=" + request.close + " WHERE user =" + id + " AND ip ='" + request.ip + "'";
-				System.out.println(insertSQL);
-				stmt.executeUpdate(insertSQL);
-				result = true;
-			}
-			
+			stmt.executeUpdate(insertSQL);
+			result = true;
 		}
 		
 		catch (Exception e) {
@@ -255,6 +239,28 @@ public class Util {
 		}
 		
 		return result;
+	}
+	
+	public static List<String>  getCondition(ConditionRequest request)
+	{
+		String selectSQL = "SELECT open,close FROM ip WHERE user = " + request.userId + " AND ip = '" + request.ip + "'";
+		List<String> results = new ArrayList<String>();
+		try
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/coms","root","password");
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(selectSQL);
+			
+			results.add(rs.getString(0));
+			results.add(rs.getString(1));
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		
+		return results;
 	}
 	
 }
