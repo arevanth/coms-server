@@ -51,7 +51,7 @@ public class ServiceController {
 	@RequestMapping(value = "/saveip", method = RequestMethod.POST)
 	public Boolean save(@RequestBody saveIpRequest save)
 	{
-		return Util.saveIp(save.userId,save.ip);
+		return Util.saveIp(save.userId,save.ip,save.name);
 	}
 	
 	@ResponseBody 

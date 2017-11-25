@@ -62,13 +62,13 @@ public class Util {
 		return response;
 	}
 	
-	public static boolean saveIp(int userId, String ip)
+	public static boolean saveIp(int userId, String ip, String name)
 	{
 		if(checkIfAlreadyExists(userId, ip))
 			return true;
 		
 		boolean result = false;
-		String insertSQL = "INSERT INTO ip(id,user,ip) VALUES (NULL," + userId + ",'" + ip + "')";
+		String insertSQL = "INSERT INTO ip(id,user,ip,name) VALUES (NULL," + userId + ",'" + ip + "'," + name +")";
 		System.out.println(insertSQL);
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
