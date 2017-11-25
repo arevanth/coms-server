@@ -32,6 +32,7 @@ public class ServiceController {
 	public boolean register(@RequestBody UserRegister user)
 	{
 		Long result = Util.register(user.name, user.email, user.password, user.type);
+		
 		if(result > 0)
 			return true;
 		else
@@ -55,7 +56,7 @@ public class ServiceController {
 	
 	@ResponseBody 
 	@RequestMapping(value = "/getip", method = RequestMethod.POST)
-	public List<String> getIP(@RequestBody GetIpRequest request){
+	public List<IPObject> getIP(@RequestBody GetIpRequest request){
 		System.out.println(request.type + "-" + request.userId);
 		return Util.getAllIp(request);
 	}

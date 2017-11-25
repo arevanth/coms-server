@@ -34,7 +34,8 @@ public class Util {
 		catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-		}
+			result = 0l;
+		}	
 		return result;
 	}
 	
@@ -115,9 +116,9 @@ public class Util {
 		return result;
 	}
 	
-	public static List<String> getAllIp(GetIpRequest request)
+	public static List<IPObject> getAllIp(GetIpRequest request)
 	{
-		List<String> results = new ArrayList<String>();
+		List<IPObject> results = new ArrayList<IPObject>();
 		
 		String selectSQL = "SELECT idusers FROM users WHERE idusers = '" + request.userId + "' AND type=" + request.type;
 		
@@ -139,9 +140,9 @@ public class Util {
 			{
 				String selectIpSQL = "";
 				if(request.type.equals("1"))
-					selectIpSQL = "SELECT ip FROM ip where user = " + id;
+					selectIpSQL = "SELECT ip,name FROM ip where user = " + id;
 				else
-					selectIpSQL = "SELECT ip FROM ip where consent = " + id;
+					selectIpSQL = "SELECT ip,name FROM ip where consent = " + id;
 				
 				System.out.println(selectIpSQL);
 				stmt = conn.createStatement();
@@ -149,7 +150,8 @@ public class Util {
 				
 				while(rs.next())
 				{
-					results.add(rs.getString(1));
+					IPObject obj = new IPObject(rs.getString(1), rs.getString(2));
+					results.add(obj);
 				}
 			}
 			
