@@ -255,8 +255,12 @@ public class Util {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(selectSQL);
 			
-			results.add(rs.getInt(0));
-			results.add(rs.getInt(1));
+			while(rs.next())
+			{
+				results.add(rs.getInt(1));
+				results.add(rs.getInt(2));
+			}
+			
 		}
 		catch(Exception ex)
 		{
