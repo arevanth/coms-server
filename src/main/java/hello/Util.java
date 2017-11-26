@@ -120,7 +120,7 @@ public class Util {
 	{
 		List<IPObject> results = new ArrayList<IPObject>();
 		
-		String selectSQL = "SELECT idusers FROM users WHERE idusers = '" + request.userId + "' AND type=" + request.type;
+		String selectSQL = "SELECT idusers FROM users WHERE idusers = " + request.userId + " AND type=" + request.type;
 		
 		System.out.println(selectSQL);
 		try
@@ -169,7 +169,7 @@ public class Util {
 	{
 		boolean result = false;
 		try{
-			String insertSQL = "UPDATE ip SET open=" + request.open +", close=" + request.close + " WHERE ip ='" + request.ip + "'";
+			String insertSQL = "UPDATE ip SET open=" + request.open + " WHERE ip ='" + request.ip + "'";
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/coms","root","password");
 			Statement stmt = conn.createStatement();
@@ -245,7 +245,7 @@ public class Util {
 	{
 		String selectSQL = "";
 	
-		selectSQL = "SELECT open,close FROM ip WHERE ip = '" + request.ip + "'";
+		selectSQL = "SELECT open FROM ip WHERE ip = '" + request.ip + "'";
 		
 		System.out.println(selectSQL);
 		
