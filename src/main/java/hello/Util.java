@@ -168,7 +168,8 @@ public class Util {
 	public static boolean setCondition(ConditionRequest request)
 	{
 		boolean result = false;
-		try{
+		try
+		{
 			String insertSQL = "UPDATE ip SET open=" + request.open + " WHERE ip ='" + request.ip + "'";
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/coms","root","password");
@@ -260,7 +261,6 @@ public class Util {
 			while(rs.next())
 			{
 				results.add(rs.getInt(1));
-				results.add(rs.getInt(2));
 			}
 			
 		}
